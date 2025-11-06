@@ -95,5 +95,60 @@ int main() {
     pentagon_array[1].print(std::cout);
     std::cout << "Площадь: " << static_cast<double>(pentagon_array[1]) << "\n";
 
+
+    std::cout << "\n=== Операции сравнения===\n";
+
+    Trapezoid<double> t1(0.0, 0.0, 4.0, 2.0, 3.0);
+    Trapezoid<double> t2(0.0, 0.0, 4.0, 2.0, 3.0);
+    Trapezoid<double> t3(1.0, 1.0, 4.0, 2.0, 3.0);
+
+    if (t1 == t2) {
+        std::cout << "t1 == t2" << std::endl;
+    } else {
+        std::cout << "t1 != t2" << std::endl;
+    }
+
+    if (t1 == t3) {
+        std::cout << "t1 == t3" << std::endl;
+    } else {
+        std::cout << "t1 != t3" << std::endl;
+    }
+
+    std::shared_ptr<Figure<double>> f1 = std::make_shared<Rhombus<double>>(0.0, 0.0, 4.0, 4.0);
+    std::shared_ptr<Figure<double>> f2 = std::make_shared<Rhombus<double>>(0.0, 0.0, 4.0, 4.0);
+    std::shared_ptr<Figure<double>> f3 = std::make_shared<Rhombus<double>>(1.0, 1.0, 4.0, 4.0);
+
+    if (*f1 == *f2) {
+        std::cout << "*f1 == *f2" << std::endl;
+    } else {
+        std::cout << "*f1 != *f2" << std::endl;
+    }
+
+    if (*f1 == *f3) {
+        std::cout << "*f1 == *f3" << std::endl;
+    } else {
+        std::cout << "*f1 != *f3" << std::endl;
+    }
+
+    std::cout << "\n=== Демонстрация копирования ===\n";
+
+    Rhombus<double> r1(10.0, 10.0, 2.0, 4.0);
+    std::cout << "До копирования r1:\n";
+    r1.print(std::cout);
+    std::cout << "Площадь r1: " << static_cast<double>(r1) << "\n";
+
+    Rhombus<double> r2; 
+    r2 = r1; 
+    std::cout << "После r2 = r1:\n";
+    r2.print(std::cout);
+    std::cout << "Площадь r2: " << static_cast<double>(r2) << "\n";
+
+    if (r1 == r2) {
+        std::cout << "r1 == r2 после копирования" << std::endl;
+    } else {
+        std::cout << "r1 != r2 после копирования" << std::endl;
+    }
+
+    std::cout << "\n=== Программа завершена ===\n";
     return 0;
 }

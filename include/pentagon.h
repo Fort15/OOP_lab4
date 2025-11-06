@@ -22,6 +22,8 @@ public:
     void print(std::ostream& os) const override;
     void input(std::istream& is) override;
     bool operator==(const Figure<T>& right_operand) const override;
+    Pentagon& operator=(const Pentagon& other);
+    Pentagon& operator=(Pentagon&& other) noexcept;
 
     void calc_points() const;
 };
@@ -84,4 +86,30 @@ void Pentagon<T>::calc_points() const {
         points[i] = Point<T>{cx + static_cast<T>(radius * std::cos(angle)),
                              cy + static_cast<T>(radius * std::sin(angle))};
     }
+}
+
+template<Number T>
+Pentagon<T>& Pentagon<T>::operator=(const Pentagon<T>& other) {
+    if (this != &other) {
+        cx = other.cx;
+        cy = other.cy;
+        radius = other.radius;
+
+        points = std::make_unique<Point<T>[]>(5);
+        for (int i = 0; i < 5; ++i) {
+            points[i] = other.points[i];
+        }
+    }
+    return *this;
+}
+
+template<Number T>
+Pentagon<T>& Pentagon<T>::operator=(Pentagon<T>&& other) noexcept {
+    if (this != &other) {
+        cx = other.cx;
+        cy = other.cy;
+        radius = other.radius;
+        points = std::move(other.points); 
+    }
+    return *this;
 }

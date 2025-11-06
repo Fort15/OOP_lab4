@@ -21,6 +21,8 @@ public:
     void print(std::ostream& os) const override;
     void input(std::istream& is) override;
     bool operator==(const Figure<T>& right_operand) const override;
+    Trapezoid& operator=(const Trapezoid& other);
+    Trapezoid& operator=(Trapezoid&& other) noexcept;
 
     void calc_points() const;
 };
@@ -81,4 +83,34 @@ void Trapezoid<T>::calc_points() const {
     points[1] = Point<T>{cx_bottom + top / static_cast<T>(2), cy_bottom + h};
     points[2] = Point<T>{cx_bottom + bottom / static_cast<T>(2), cy_bottom};
     points[3] = Point<T>{cx_bottom - bottom / static_cast<T>(2), cy_bottom};
+}
+
+template<Number T>
+Trapezoid<T>& Trapezoid<T>::operator=(const Trapezoid<T>& other) {
+    if (this != &other) {
+        cx_bottom = other.cx_bottom;
+        cy_bottom = other.cy_bottom;
+        bottom = other.bottom;
+        top = other.top;
+        h = other.h;
+
+        points = std::make_unique<Point<T>[]>(4);
+        for (int i = 0; i < 4; ++i) {
+            points[i] = other.points[i];
+        }
+    }
+    return *this;
+}
+
+template<Number T>
+Trapezoid<T>& Trapezoid<T>::operator=(Trapezoid<T>&& other) noexcept {
+    if (this != &other) {
+        cx_bottom = other.cx_bottom;
+        cy_bottom = other.cy_bottom;
+        bottom = other.bottom;
+        top = other.top;
+        h = other.h;
+        points = std::move(other.points); 
+    }
+    return *this;
 }

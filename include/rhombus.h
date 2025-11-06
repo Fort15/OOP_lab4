@@ -21,6 +21,8 @@ public:
     void print(std::ostream& os) const override;
     void input(std::istream& is) override;
     bool operator==(const Figure<T>& right_operand) const override;
+    Rhombus& operator=(const Rhombus& other);
+    Rhombus& operator=(Rhombus&& other) noexcept;
 
     void calc_points() const;
 };
@@ -79,4 +81,32 @@ void Rhombus<T>::calc_points() const {
     points[1] = Point<T>{cx + d2 / static_cast<T>(2), cy};
     points[2] = Point<T>{cx, cy - d1 / static_cast<T>(2)};
     points[3] = Point<T>{cx - d2 / static_cast<T>(2), cy};
+}
+
+template<Number T>
+Rhombus<T>& Rhombus<T>::operator=(const Rhombus<T>& other) {
+    if (this != &other) {
+        cx = other.cx;
+        cy = other.cy;
+        d1 = other.d1;
+        d2 = other.d2;
+
+        points = std::make_unique<Point<T>[]>(4);
+        for (int i = 0; i < 4; ++i) {
+            points[i] = other.points[i];
+        }
+    }
+    return *this;
+}
+
+template<Number T>
+Rhombus<T>& Rhombus<T>::operator=(Rhombus<T>&& other) noexcept {
+    if (this != &other) {
+        cx = other.cx;
+        cy = other.cy;
+        d1 = other.d1;
+        d2 = other.d2;
+        points = std::move(other.points); 
+    }
+    return *this;
 }
