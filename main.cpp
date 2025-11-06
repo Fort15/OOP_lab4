@@ -96,7 +96,7 @@ int main() {
     std::cout << "Площадь: " << static_cast<double>(pentagon_array[1]) << "\n";
 
 
-    std::cout << "\n=== Операции сравнения===\n";
+    std::cout << "\n=== СРАВНЕНИЕ ===\n";
 
     Trapezoid<double> t1(0.0, 0.0, 4.0, 2.0, 3.0);
     Trapezoid<double> t2(0.0, 0.0, 4.0, 2.0, 3.0);
@@ -130,7 +130,7 @@ int main() {
         std::cout << "*f1 != *f3" << std::endl;
     }
 
-    std::cout << "\n=== Демонстрация копирования ===\n";
+    std::cout << "\n=== КОПИРОВАНИЕ ===\n";
 
     Rhombus<double> r1(10.0, 10.0, 2.0, 4.0);
     std::cout << "До копирования r1:\n";
